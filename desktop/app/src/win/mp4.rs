@@ -6,7 +6,7 @@
 //! output streams of the sink writer) so zero video re-encoding occurs on the
 //! PC. When phone audio (16-bit PCM) is present, it is encoded to AAC-LC
 //! (`MFAudioFormat_AAC`) into the same `.mp4` container.
-
+// Trigger test build for MP4 recording fix
 use crate::i18n::tr;
 use std::{
     path::{Path, PathBuf},
