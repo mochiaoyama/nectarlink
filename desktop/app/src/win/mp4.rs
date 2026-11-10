@@ -150,25 +150,29 @@ impl MirrorRecorder {
 
         let is_keyframe = keyframe || has_idr_slice(data);
 
-      if !is_keyframe
-    || self.width == 0
-    || self.height == 0
-    || !data_has_sps_pps(&self.sps_pps)
-{
-    return Ok(());
-}
-            let active = ActiveWriter::open(
-                &self.path,
-                self.width,
-                self.height,
-                self.fps,
-                &self.sps_pps,
-                self.audio_cfg,
-            )
-            .map_err(|e| e.to_string())?;
-            self.writer = Some(active);
-        }
+    let is_keyframe = keyframe || has_idr_slice(data);
 
+if self.writer.is_none() {
+    if !is_keyframe
+        || self.width == 0
+        || self.height == 0
+        || !data_has_sps_pps(&self.sps_pps)
+    {
+        return Ok(());
+    }
+
+    let active = ActiveWriter::open(
+        &self.path,
+        self.width,
+        self.height,
+        self.fps,
+        &self.sps_pps,
+        self.audio_cfg,
+    )
+    .map_err(|e| e.to_string())?;
+
+    self.writer = Some(active);
+}
         let Some(w) = self.writer.as_mut() else {
             return Ok(());
         };
