@@ -150,8 +150,6 @@ impl MirrorRecorder {
 
         let is_keyframe = keyframe || has_idr_slice(data);
 
-    let is_keyframe = keyframe || has_idr_slice(data);
-
 if self.writer.is_none() {
     if !is_keyframe
         || self.width == 0
